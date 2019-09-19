@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from task_11_1 import parse_cdp_neighbors
-from draw_network_graph import *
+
 q1 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r1.txt')
 q2 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r2.txt')
 q3 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r3.txt')
@@ -25,5 +25,7 @@ for key, value in q.items():
         s[key] = value
     else:
         pass
-draw_topology(s)
+from draw_network_graph import draw_topology
+if __name__ == '__main__':
+    draw_topology(s)
 
