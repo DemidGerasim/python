@@ -25,4 +25,3 @@ def parse_cdp_neighbors(show):
 if __name__ == "__main__":
     q = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sw1_sh_cdp_neighbors.txt')
     print(q)
-

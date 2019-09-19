@@ -14,7 +14,7 @@ q.update(q4)
 
 s = {} 
 lists = [] 
- 
+
 for key, value in q.items(): 
     dic_buffer = {} 
     key_str = ''.join(list(key)) 
@@ -28,4 +28,3 @@ for key, value in q.items():
 from draw_network_graph import draw_topology
 if __name__ == '__main__':
     draw_topology(s)
-
