@@ -1,55 +1,34 @@
-#!/usr/bin/env python3
-
-import subprocess
-import argparse
-import multiprocessing
-from multiprocessing import Process
-from task_12_1 import check_ip_addresse
-from task_12_1 import ping_ip_list
+from task_12_1 import check_ip_addresses
 
 
-def count_integer(a, b):
+def check_list_ip(ip_list):
+    """ Функция проверяет, присутствует ли диапазон айпишников
+    в каком-либо элементе списка и, если он есть, то "разворачивает его".
+    While используется, чтобы делать проверку для каждого элемента списка,
+    так как диапазонов может быть несколько. Возвращает обновлённый список.
     """
-    Эта функция считает количество объектов между переменными a и b.
-    """
-    x = 0
-    status = True
-    while status:
-        if a == b:
-            x = x + 1
-            status = False
-        else:
-            a = a + 1
-            x = x + 1
-    return x
+    i = len(ip_list)
+    while i > 0:
+        for ip in ip_list:
+            if '-' in ip:
+                ip_begin = ip.split('-')[0].rsplit('.', maxsplit=1)[0]  # первые три неизменяемых октета в диапазоне
+                if len(ip.split('-')[1]) > 3:   # проверка, как задан диапазон. Такой ли вид 127.0.0.1-127.0.0.3 ?
+                    ip_list.remove(ip)  # удаляем из списка этот диапазон, чтобы немножились записи результата
+                    ip = ip.split('-')
+                    rng = []
+                    for j in ip:
+                        rng.append(j.rsplit('.', maxsplit=1)[-1])   # ищем границы диапазона
+                else:
+                    ip_list.remove(ip)  # удаляем из списка этот диапазон, чтобы немножились записи результата
+                    rng = ip.rsplit('.', maxsplit=1)[1].split('-')  # ищем границы диапазона
+                octet_range = [i for i in range(int(rng[0]), int(rng[1]) + 1)]  # "Разворачиваем диапазон rng[n,m]
+                for k in octet_range:
+                    ip_list.append(ip_begin + '.' + str(k))     # скидываем в список итоговые айпишники
+        i -= 1
+    return ip_list
 
-if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Ping script')
-    parser.add_argument('ip', action='store', help='Enter ip-address-list just like: 8.8.4.4 or 172.21.41.128-172.21.41.132 or 1.1.1.1-3')
-    args = parser.parse_args()
-
-    ip_list = []
-    if '-' in args.ip:
-        ip_str, ip_str2 = args.ip.split('-')
-        last_oktet = int(ip_str.split('.')[-1])
-        last_oktet2 = int(ip_str2.split('.')[-1])
-        x = count_integer(last_oktet, last_oktet2)
-        ip_str = ip_str.split('.')
-        ip_int = [int(i) for i in ip_str]
-
-        for i in range(x):
-            ip_str = [str(i) for i in ip_int]
-            ip_str = '.'.join(ip_str)
-            ip_list.append(ip_str)
-            ip_int[-1] = ip_int[-1] + 1
-
-        print(ping_ip_list(ip_list))
-    else:
-        result = {True: [], False: []}
-        command = subprocess.run('ping -c 3 {}'.format(args.ip), shell=True, stdout=subprocess.DEVNULL)
-        if command.returncode == 0:
-            print('Yeah,', args.ip, 'is alive')
-            result[True].append()
-        else:
-            print('Oh noo,'. args.ip, 'is dead')
+if __name__ == '__main__':
+    ip_list = ['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
+    result = check_ip_addresses(check_list_ip(ip_list))
+    print(f'Available IP: {result[0]} \nUnavailable IP: {result[1]}')

@@ -7,7 +7,7 @@ yes = ['192.168.1.{}'.format(i) for i in range(1,10)]
 no = ['192.168.9.{}'.format(i) for i in range(1,5)]
 def ip_table(list1, list2):
     """
-    Функция требует два списка, и распечатать их с табличным
+    Функция требует два списка, и распечатать их в табличном
     """
     q = {'Available': [], 'Unavailable': []}
     for i in yes:
