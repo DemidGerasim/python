@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import graphviz 
 from task_11_1 import parse_cdp_neighbors
 
 q1 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r1.txt')
