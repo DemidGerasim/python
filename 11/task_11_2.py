@@ -1,30 +1,26 @@
 #!/usr/bin/env python3
-import graphviz 
+
+from draw_network_graph import draw_topology
 from task_11_1 import parse_cdp_neighbors
 
-q1 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r1.txt')
-q2 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r2.txt')
-q3 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_r3.txt')
-q4 = parse_cdp_neighbors('D:/Study/3 семестр/Python/11/sh_cdp_n_sw1.txt')
-q = {}
-q.update(q1)
-q.update(q2)
-q.update(q3)
-q.update(q4)
+with open('D:/Study/3 семестр/Python/11/sw1_sh_cdp_neighbors.txt') as src:
+    src_file = src.read()
 
-s = {} 
-lists = [] 
+draw_topology(parse_cdp_neighbors(src_file))    # Передали как аргумен вывод функции parse_cdp_neibors
 
-for key, value in q.items(): 
-    dic_buffer = {} 
-    key_str = ''.join(list(key)) 
-    value_str = ''.join(list(value)) 
-    if key_str not in ''.join(lists) or value_str not in ''.join(lists):
-        lists.append(key_str) 
-        lists.append(value_str) 
-        s[key] = value
-    else:
-        pass
-from draw_network_graph import draw_topology
-if __name__ == '__main__':
-    draw_topology(s)
+files = ['D:/Study/3 семестр/Python/11/sh_cdp_n_sw1.txt', 'D:/Study/3 семестр/Python/11/sh_cdp_n_r1.txt',
+'D:/Study/3 семестр/Python/11/sh_cdp_n_r2.txt', 'D:/Study/3 семестр/Python/11/sh_cdp_n_r3.txt']
+result = {}
+for file in files:
+    with open(file) as f:
+        result.update(parse_cdp_neighbors(f.read()))
+
+# Далее выполняется проверка на дублирование линков.
+# Пробегаемся по списку значений словаря
+# если элемент списка 'k' соответствует ключу словаря 'result' и значение ключа 'k' словаря 'result' содержится в ключе
+# то удаляем ключ словаря
+for k in list(result.values()):
+    if k in result.keys() and result[k] in result.keys():
+        del(result[k])
+
+draw_topology(result)

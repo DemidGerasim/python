@@ -1,14 +1,12 @@
-#!/usr/bin/env python
+# #!/usr/bin/env python
 
-result_list = []
-
-with open('D:/Study/3 семестр/Python/7/CAM_table.txt', 'r') as list:
-    for k in list:
-        if '.' in k:    # если в строке есть точка, то
-            vlan, mac, _, intf = k.split()  # присваиваем переменным элементы строки k.split()
-            unsorted = '{vlan:6} {mac}   {intf}'.format(vlan=vlan, mac=mac, intf=intf) # форматированое присваивание переменной элементов
-            result_list.append(unsorted)    # добавлять к result_list вёс новые и новые элементы
-
-result_list.sort()      # сортируем
-for k in result_list:   # выводим каждый элемент в новой строке.
-    print(k)
+with open('D:/Study/3 семестр/Python/7/CAM_table.txt', 'r') as start:
+    lists = []
+    for line in start:
+        if line.count('.') is 2:
+            a = line.strip('\n').split()
+            a.pop(-2)
+            lists.append(a)
+            lists = sorted(lists, key = lambda x: int(x[0]))
+    for l in lists:
+        print(l[0] + ' ' + l[1] + ' ' + l[2])

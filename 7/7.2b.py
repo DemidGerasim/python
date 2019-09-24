@@ -11,4 +11,3 @@ with open('D:/Study/3 семестр/Python/7/config_sw1.txt', 'r') as f,  open(
                 break
         else:
             result.write(list)   
-         

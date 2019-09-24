@@ -12,4 +12,4 @@ with open('D:/Study/3 семестр/Python/7/config_sw1.txt','r') as f:    # П
             if k in list:   # если есть в строке элемент из ignore, то прерываем цикл и переходит к след. строке.
                 break
         else:
-            print(list)
+            print(list, end="")

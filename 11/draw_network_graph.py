@@ -45,17 +45,14 @@ def apply_styles(graph, styles):
     return graph
 
 
-def draw_topology(topology_dict, output_filename='D:/Study/3 семестр/Python/11/img/topology'):
+def draw_topology(topology_dict, output_filename='img/topology'):
     '''
     topology_dict - словарь с описанием топологии
-
     Этот словарь
         {('R4', 'Fa0/1'): ('R5', 'Fa0/1'),
          ('R4', 'Fa0/2'): ('R6', 'Fa0/0')}
-
     соответствует топологии:
     [ R5 ]-Fa0/1 --- Fa0/1-[ R4 ]-Fa0/2---Fa0/0-[ R6 ]
-
     Функция генерирует топологию, в формате svg.
     И записывает файл topology.svg в каталог img.
     '''
