@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 
 def generate_trunk_config(trunk):
-    lists = []
+    lists = [] # создали пустой список
+    '''
+    trunk - словарь trunk-портов,
+    для которых необходимо сгенерировать конфигурацию, вида:
+        { 'FastEthernet0/1':[10,20,30],
+          'FastEthernet0/2':[11,30],
+          'FastEthernet0/4':[17] }
+    Возвращает словарь:
+    - ключи: имена интерфейсов, вида 'FastEthernet0/1'
+    - значения: список команд, который надо выполнить на этом интерфейсе
+    '''
     trunk_mode_template = ['switchport trunk native vlan 999',
                   'switchport trunk allowed vlan'] 
     for inter, vlan in trunk.items():  

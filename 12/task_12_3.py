@@ -1,19 +1,15 @@
-#!/usr/bin/env python3
-
+from task_12_1 import check_ip_addresses
+from task_12_2 import check_list_ip
 from tabulate import tabulate
 
-#create two lists
-yes = ['192.168.1.{}'.format(i) for i in range(1,10)]
-no = ['192.168.9.{}'.format(i) for i in range(1,5)]
-def ip_table(list1, list2):
-    """
-    Функция требует два списка, и распечатать их в табличном
-    """
-    q = {'Available': [], 'Unavailable': []}
-    for i in yes:
-        q['Available'].append(i)
-    for i in no:
-        q['Unavailable'].append(i)
-    print(tabulate(q, headers='keys'))
 
-ip_table(yes, no)
+def ip_table(avail, unavail):
+    ip_dict = {'Reachable': avail, 'Unreachable': unavail}
+
+    return tabulate(ip_dict, headers='keys')
+
+
+if __name__ == '__main__':
+    ip_list = ['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
+    result = check_ip_addresses(check_list_ip(ip_list))
+    print(ip_table(result[0], result[1]))

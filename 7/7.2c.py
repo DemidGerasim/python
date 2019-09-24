@@ -2,15 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from sys import argv
-from functools import reduce
-if __name__ == '__main__':
 
-    inp, out = argv[1:]
+ignore = ['duplex', 'alias', 'Current configuration']
 
-    ignore = ['duplex', 'alias', 'Current configuration']
-    with open(inp, 'r') as f:
-        lines = [line for line in f.read().split('\n')
-                 if reduce(lambda x, y: x + int(y in line), ignore, 0) > 0]
-
-    with open(out, 'w') as f:
-        f.writelines(lines)
+with open('D:/Study/3 семестр/Python/7/config_sw1.txt', 'r') as f,  open('D:/Study/3 семестр/Python/7/config_sw1_cleared.txt', 'w') as result:
+    for list in f:
+        for k in ignore:
+            if k in list:
+                break
+        else:
+            result.write(list)

@@ -11,4 +11,3 @@ Vlan    Mac Address       Type        Ports
  500    aabb.cc80.7000    DYNAMIC     Gi0/5
  200    aabb.cc80.7000    DYNAMIC     Gi0/6
  300    aabb.cc80.7000    DYNAMIC     Gi0/7
-1000    0a4b.c380.7d00    DYNAMIC     Gi0/9 

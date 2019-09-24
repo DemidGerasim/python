@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 
 def generate_access_config(access, psecurity=None):
-    lists = []
+    lists = [] # создали пустой список
+    '''
+    access - словарь access-портов,
+    для которых необходимо сгенерировать конфигурацию, вида:
+        { 'FastEthernet0/12':10,
+          'FastEthernet0/14':11,
+          'FastEthernet0/16':17}
+    Возвращает список всех портов в режиме access с конфигурацией на основе шаблона
+    '''
     access_mode_template = ['switchport mode access',
                    'switchport access vlan',
                    'switchport nonegotiate',

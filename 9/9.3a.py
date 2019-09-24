@@ -1,21 +1,22 @@
-#!/usr/bin/env python3
+def get_int_vlan_map(config_file):
+    with open(config_file) as src:
+        config = {}
+        for line in src:  # Пробегаемся по каждой строке в файле
+            if line.startswith('interface'):  # Ищем строку, где встречается нужно слово
+                interface = line.split(' ')[1].strip()
+                config[interface] = []  # создаём пустой словарь, где ключ interface
+            elif line.startswith(' '):
+                config[interface].append(line.strip())  # Добавляем в словарь значения (конфиг интерфейса)
 
-def get_int_vlan_map(config):
-    access_config = {}
-    with open(config, 'r') as file:
-        for line in file:
-            if line.find('FastEthernet') != -1:
-                interface = line.split()[-1]
-                line = file.readline()
-                if line.find('mode access') != -1:
-                    line = file.readline()
-                    access_vlan = line.split()[-1]
-                    if access_vlan.isdigit():
-                        access_config[interface] = access_vlan
-                    else:
-                        access_config[interface] = '1'
-                elif line.find('encapsulation dot1q') != -1:
-                    line = file.readline()
-                    print('access interfaces: \n', access_config)
-        return access_config
-get_int_vlan_map('D:/Study/3 семестр/Python/9/config_sw2.txt')
+    access_ports = {}
+
+    for interface, comand in config.items():  # закидываем в переменные ключ и значения словаря
+        for k in comand:
+            if k.startswith('switchport access'):
+                access_ports[interface] = int(k.split()[-1])  # Если встречается строка, то кидаем в значение номер влан
+            elif 'switchport mode access' in k:     # если не первые два условия, то сработает это условие
+                access_ports[interface] = int(1)    # закидываем в значение ключа единичку
+
+    return access_ports
+
+print(get_int_vlan_map('D:/Study/3 семестр/Python/9/config_sw2.txt'))  # pprint для удобства чтения. никаких переводов строки при этом нет
