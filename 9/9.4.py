@@ -28,4 +28,4 @@ def config(open_cfg):
 
     return result
 
-print(config('D:/Study/3 семестр/Python/9/config_sw1.txt'))
+print(config('D:/Study/Python/9/config_sw1.txt'))

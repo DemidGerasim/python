@@ -19,4 +19,4 @@ def get_int_vlan_map(config_file):
             
     return access_ports
 
-print(get_int_vlan_map('D:/Study/3 семестр/Python/9/config_sw1.txt'))  
+print(get_int_vlan_map('D:/Study/Python/9/config_sw1.txt'))  

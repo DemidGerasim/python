@@ -45,7 +45,7 @@ def apply_styles(graph, styles):
     return graph
 
 
-def draw_topology(topology_dict, output_filename='img/topology'):
+def draw_topology(topology_dict, output_filename='D:/Study/Python/11/img/topology'):
     '''
     topology_dict - словарь с описанием топологии
     Этот словарь
